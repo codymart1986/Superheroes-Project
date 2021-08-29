@@ -15,3 +15,4 @@ def detail(request, hero_id):
     context = {
         'single_hero' : single_hero
     }
+    return render (request, 'heroes/details.html', context)
