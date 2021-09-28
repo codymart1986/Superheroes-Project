@@ -13,9 +13,9 @@ def index(request):
     return render(request, 'heroes/index.html', context)
 
 def detail(request, hero_id):
-    single_hero = Hero.objects.get(pk=hero_id)
+    selected_hero = Hero.objects.get(pk=hero_id)
     context = {
-        'single_hero' : single_hero
+        'selected_hero' : selected_hero
     }
     return render (request, 'heroes/details.html', context)
 
@@ -31,3 +31,34 @@ def create(request):
         return HttpResponseRedirect(reverse('heroes:index'))
     else:
         return render(request, 'heroes/create.html')
+
+def edit(request, hero_id):
+    selected_hero = Hero.objects.get(pk=hero_id)
+    if request.method == "POST":
+        selected_hero.name = request.POST.get('name')
+        selected_hero.alter_ego = request.POST.get('alter_ego')
+        selected_hero.primary_ability = request.POST.get('primary_ability')
+        selected_hero.secondary_ability = request.POST.get('secondary_ability')
+        selected_hero.catchphrase = request.POST.get('catchphrase')
+        selected_hero.save()
+        context = {
+            "selected_hero": selected_hero
+        }
+        return render(request, 'heroes/details.html', context)
+    else:
+        context = {
+            "selected_hero": selected_hero
+        }
+        return render(request, 'heroes/edit.html', context)
+
+
+def delete(request, hero_id):
+    selected_hero = Hero.objects.get(pk=hero_id)
+    if request.method == "POST":
+        selected_hero.delete()
+        return index(request)
+    else:
+        context = {
+            "selected_hero": selected_hero
+        }
+        return render(request, 'heroes/delete.html', context)

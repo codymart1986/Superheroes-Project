@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superhero Editor</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+</head>
+<body>
+    <h1 class="container-fluid"> Editing {{selected_hero.name}} </h1>
+    <form action="{% url 'heroes:edit_hero' selected_hero.id %}" method="post" class="container">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+            <input type="text" name="name" id="name" class="form-control" value= "{{selected_hero.name}}" >
+            <label for="name" class="form-label">Name:</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="alter_ego" id="alter_ego_name" class="form-control" value= "{{selected_hero.alter_ego}}" >
+            <label for="alter_ego" class="form-label">Alter Ego:</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="primary_ability" id="primary_ability" class="form-control" value= "{{selected_hero.primary_ability}}" >
+            <label for="primary_ability" class="form-label">Primary Ability:</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="secondary_ability" id="secondary_ability" class="form-control" value= "{{selected_hero.secondary_ability}}" >
+            <label for="secondary_ability" class="form-label"> Secondary Ability:</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="text" name="catchphrase" id="catchphrase" class="form-control" value= "{{selected_hero.catchphrase}}" >
+            <label for="catchphrase" class="form-label">Catchphrase:</label>
+        </div>
